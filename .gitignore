@@ -1,0 +1,9 @@
+**/__pycache__/
+**/.vscode/
+**/*.TXT
+**/*.pkl
+**/*.npz
+**/*.png
+**/log/
+**/params/
+.codex

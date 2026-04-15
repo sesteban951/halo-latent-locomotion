@@ -1,0 +1,25 @@
+name: env_rom
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - matplotlib
+  - pygame
+  - tensorboard
+  - pytorch
+  - setuptools<81
+  - pip
+  - pip:
+      - "jax[cuda12]"
+      - mujoco
+      - mujoco-warp
+      - mujoco-mjx
+      - brax
+      - flax
+      - optax
+      - tensorboardX
+      - glfw
+      - warp-lang
