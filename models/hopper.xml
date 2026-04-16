@@ -1,0 +1,68 @@
+<mujoco model="hopper">
+
+    <!-- Simulation settings-->
+    <option solver="Newton" integrator="RK4" timestep="0.005" iterations="20" ls_iterations="20" cone="elliptic"/>
+
+    <!-- Inertia is computed from geometry -->
+    <compiler inertiafromgeom="true" />
+    
+    <asset>
+        <texture type="skybox" builtin="flat" rgb1="0 0 0" rgb2="0 0 0" width="512" height="512"/>
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.9 0.9 0.9" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    </asset>
+
+    <!-- Memory settings (default is 1000) -->
+    <size nstack="3000" />
+
+    <worldbody>
+
+        <!-- Add light -->
+        <light pos="-0.5 0.0 2.0" dir="0 0 -1" directional="true"/>  
+
+        <!-- Ground -->
+        <geom name="ground" type="plane" size="0 0 0.01" material="groundplane" contype="1" conaffinity="6"/>
+
+        <!-- Body -->
+        <body name="torso" pos="0 0 0.0">
+            <joint name="px"    type="slide" axis="1 0 0"/>
+            <joint name="pz"    type="slide" axis="0 0 1"/>
+            <joint name="theta" type="hinge" axis="0 1 0"/>
+            <geom name="torso" type="sphere" size="0.1" rgba="1.0 0.424 0.047 1" contype="2" conaffinity="1"/>
+            <site name="torso_site" type="sphere" size="0.101" rgba="0 0 0 0"/>
+            <geom name="upper_leg" type="cylinder" fromto="0 0 0 0 0 -0.5" size="0.04" rgba="0.4 0.4 0.4 0.5"/>
+
+            <!-- SpringLoaded Leg -->
+            <body name="lower_leg" pos="0 0 -0.5">
+                <joint name="leg" type="slide" axis="0 0 1" range="-0.25 0.25" springref="0.0" stiffness="2000.0" damping="50.0"/>
+                <geom name="lower_leg" type="cylinder" fromto="0 0 0.25 0 0 -0.25" size="0.03" rgba="0.8 0.8 0.8 0.5"/>
+                <geom name="foot" type="sphere" size="0.05" pos="0 0 -0.25" rgba="0.1 0.1 0.1 1" contype="4" conaffinity="1"/>
+                <site name="foot_site" type="sphere" size="0.051" pos="0 0 -0.25" rgba="0 0 0 0"/>
+            </body>
+        </body>
+
+    </worldbody>
+
+    <!-- Sensors -->    
+    <sensor>
+        <!-- contact sensors -->
+        <touch name="torso_touch" site="torso_site"/>
+        <touch name="foot_touch"  site="foot_site"/>
+
+        <!-- foot world position -->
+        <framepos name="torso_pos" objtype="site" objname="torso_site"/>
+        <framepos name="foot_pos" objtype="site" objname="foot_site"/>
+    </sensor>
+
+    <!-- Actutators -->
+    <actuator>
+        <motor name="body_motor" joint="theta" ctrllimited="true" ctrlrange="-1 1" gear="20"/>
+        <motor name="leg_motor" joint="leg" ctrllimited="true" ctrlrange="-1 1" gear="300"/>
+    </actuator>
+
+    <!-- default configuration (when you press "Load key" button) -->
+    <keyframe>
+        <key name="default" qpos="0.0 1.25 0.0 0.0" qvel="0 0 0 0" />
+    </keyframe>
+
+</mujoco>
