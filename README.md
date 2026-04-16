@@ -21,7 +21,7 @@ MuJoCo XML models in `models/`:
 |---|---|---|
 | `paddle_ball.xml` | 4 | Paddle hits ball to regulate ball height |
 | `hopper.xml` | 4 | Hopping robot with spring-loaded leg |
-| `g1_23dof.xml` | 28 | Unitree G1 humanoid robot |
+| `g1_23dof.xml` | 29 | Unitree G1 humanoid robot |
 
 ## Pipeline
 
