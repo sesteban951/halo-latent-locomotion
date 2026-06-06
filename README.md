@@ -6,6 +6,8 @@
 
 A framework for learning reduced-order models (ROMs) of legged locomotion dynamics using autoencoders. The pipeline spans RL policy training, GPU-accelerated data generation, Poincare section extraction, autoencoder-based ROM learning, and stability analysis via Lyapunov methods.
 
+From the paper: [HALO: Hybrid Auto-encoded Locomotion with Learned Latent Dynamics, Poincare Maps, and Regions of Attraction](https://arxiv.org/pdf/2604.18887)
+
 ## Installation
 
 ```bash
